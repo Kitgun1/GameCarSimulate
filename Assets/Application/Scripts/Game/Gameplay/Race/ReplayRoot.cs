@@ -106,8 +106,8 @@ namespace CarSimulate.Game.Gameplay.Race
 				}
 				var t = Mathf.InverseLerp(previousFrame.Time, nextFrame.Time, currentReplayTime);
 				_replayObject.Transform.SetPositionAndRotation(
-					Vector3.Lerp(previousFrame.Position, nextFrame.Position, t),
-					Quaternion.Slerp(previousFrame.Rotation, nextFrame.Rotation, t)
+					Vector3.Lerp(previousFrame.Position.ToVector3(), nextFrame.Position.ToVector3(), t),
+					Quaternion.Slerp(previousFrame.Rotation.ToQuaternion(), nextFrame.Rotation.ToQuaternion(), t)
 				);
 				(string name, Transform origin)[] wheels = {
 					(nameof(_replayObject.RearRightWheel), _replayObject.RearRightWheel), (nameof(_replayObject.FrontRightWheel), _replayObject.FrontRightWheel),
@@ -122,8 +122,8 @@ namespace CarSimulate.Game.Gameplay.Race
 					var previousSubRecord = previousFrame.SubRecords.First(r => r.Name == wheel.name);
 					var nextSubRecord = nextFrame.SubRecords.First(r => r.Name == wheel.name);
 					wheel.origin.SetLocalPositionAndRotation(
-						Vector3.Lerp(previousSubRecord.LocalPosition, nextSubRecord.LocalPosition, t),
-						Quaternion.Slerp(previousSubRecord.LocalRotation, nextSubRecord.LocalRotation, t)
+						Vector3.Lerp(previousSubRecord.LocalPosition.ToVector3(), nextSubRecord.LocalPosition.ToVector3(), t),
+						Quaternion.Slerp(previousSubRecord.LocalRotation.ToQuaternion(), nextSubRecord.LocalRotation.ToQuaternion(), t)
 					);
 				}
 				yield return null;
@@ -136,49 +136,49 @@ namespace CarSimulate.Game.Gameplay.Race
 			while (true)
 			{
 				_currentRaceRecord.Add(new RecordObjectData {
-					Position = vehicleObject.Transform.position,
-					Rotation = vehicleObject.Transform.rotation,
+					Position = vehicleObject.Transform.position.ToSaveVector3(),
+					Rotation = vehicleObject.Transform.rotation.ToSaveQuaternion(),
 					Time = Time.time - startTime,
 					SubRecords = new[] {
 						new RecordSubObjectData {
 							Name = nameof(vehicleObject.FrontLeftWheel),
-							LocalPosition = vehicleObject.FrontLeftWheel.localPosition,
-							LocalRotation = vehicleObject.FrontLeftWheel.localRotation,
+							LocalPosition = vehicleObject.FrontLeftWheel.localPosition.ToSaveVector3(),
+							LocalRotation = vehicleObject.FrontLeftWheel.localRotation.ToSaveQuaternion(),
 						},
 						new RecordSubObjectData {
 							Name = nameof(vehicleObject.FrontRightWheel),
-							LocalPosition = vehicleObject.FrontRightWheel.localPosition,
-							LocalRotation = vehicleObject.FrontRightWheel.localRotation,
+							LocalPosition = vehicleObject.FrontRightWheel.localPosition.ToSaveVector3(),
+							LocalRotation = vehicleObject.FrontRightWheel.localRotation.ToSaveQuaternion(),
 						},
 						new RecordSubObjectData {
 							Name = nameof(vehicleObject.RearLeftWheel),
-							LocalPosition = vehicleObject.RearLeftWheel.localPosition,
-							LocalRotation = vehicleObject.RearLeftWheel.localRotation,
+							LocalPosition = vehicleObject.RearLeftWheel.localPosition.ToSaveVector3(),
+							LocalRotation = vehicleObject.RearLeftWheel.localRotation.ToSaveQuaternion(),
 						},
 						new RecordSubObjectData {
 							Name = nameof(vehicleObject.RearRightWheel),
-							LocalPosition = vehicleObject.RearRightWheel.localPosition,
-							LocalRotation = vehicleObject.RearRightWheel.localRotation,
+							LocalPosition = vehicleObject.RearRightWheel.localPosition.ToSaveVector3(),
+							LocalRotation = vehicleObject.RearRightWheel.localRotation.ToSaveQuaternion(),
 						},
 						new RecordSubObjectData {
 							Name = vehicleObject.FrontLeftWheel.GetChild(0).name,
-							LocalPosition = vehicleObject.FrontLeftWheel.GetChild(0).localPosition,
-							LocalRotation = vehicleObject.FrontLeftWheel.GetChild(0).localRotation,
+							LocalPosition = vehicleObject.FrontLeftWheel.GetChild(0).localPosition.ToSaveVector3(),
+							LocalRotation = vehicleObject.FrontLeftWheel.GetChild(0).localRotation.ToSaveQuaternion(),
 						},
 						new RecordSubObjectData {
 							Name = vehicleObject.FrontRightWheel.GetChild(0).name,
-							LocalPosition = vehicleObject.FrontRightWheel.GetChild(0).localPosition,
-							LocalRotation = vehicleObject.FrontRightWheel.GetChild(0).localRotation,
+							LocalPosition = vehicleObject.FrontRightWheel.GetChild(0).localPosition.ToSaveVector3(),
+							LocalRotation = vehicleObject.FrontRightWheel.GetChild(0).localRotation.ToSaveQuaternion(),
 						},
 						new RecordSubObjectData {
 							Name = vehicleObject.RearLeftWheel.GetChild(0).name,
-							LocalPosition = vehicleObject.RearLeftWheel.GetChild(0).localPosition,
-							LocalRotation = vehicleObject.RearLeftWheel.GetChild(0).localRotation,
+							LocalPosition = vehicleObject.RearLeftWheel.GetChild(0).localPosition.ToSaveVector3(),
+							LocalRotation = vehicleObject.RearLeftWheel.GetChild(0).localRotation.ToSaveQuaternion(),
 						},
 						new RecordSubObjectData {
 							Name = vehicleObject.RearRightWheel.GetChild(0).name,
-							LocalPosition = vehicleObject.RearRightWheel.GetChild(0).localPosition,
-							LocalRotation = vehicleObject.RearRightWheel.GetChild(0).localRotation,
+							LocalPosition = vehicleObject.RearRightWheel.GetChild(0).localPosition.ToSaveVector3(),
+							LocalRotation = vehicleObject.RearRightWheel.GetChild(0).localRotation.ToSaveQuaternion(),
 						},
 					}
 				});

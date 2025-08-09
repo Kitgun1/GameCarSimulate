@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CarSimulate.Game.GameRoot.View
 {
@@ -7,6 +8,7 @@ namespace CarSimulate.Game.GameRoot.View
 		[SerializeField] private GameObject _loadingScreen;
 		[SerializeField] private Transform _uiSceneContainer;
 		[SerializeField] private Camera _uiRootCamera;
+		[SerializeField] private RectTransform _uiCanvas;
 		
 		public Camera UIRootCamera => _uiRootCamera;
 
@@ -16,7 +18,7 @@ namespace CarSimulate.Game.GameRoot.View
 		public void AttachSceneUI(GameObject sceneUI)
 		{
 			ClearSceneUI();
-
+			
 			sceneUI.transform.SetParent(_uiSceneContainer, false);
 		}
 

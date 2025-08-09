@@ -1,4 +1,3 @@
-using System;
 using Ashsvp;
 using CarSimulate.Game.Gameplay.Race;
 using CarSimulate.Game.Gameplay.Root.View;
